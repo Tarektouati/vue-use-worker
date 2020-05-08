@@ -1,0 +1,71 @@
+{
+  "name": "vue-use-worker",
+  "version": "0.0.1",
+  "description": "Web Worker API implemented as Vue.js composition functions",
+  "module": "dist/vue-use-worker.esm.js",
+  "unpkg": "dist/vue-use-worker.js",
+  "main": "dist/vue-use-worker.js",
+  "types": "dist/types/index.d.ts",
+  "homepage": "https://github.com/Tarektouati/vue-use-web",
+  "repository": "https://github.com/Tarektouati/vue-use-web",
+  "scripts": {
+    "test": "jest",
+    "test:cover": "jest --coverage",
+    "lint": "eslint '{src, test}/**.{js,jsx,ts,tsx}' --fix",
+    "ts:defs": "./scripts/defs.sh",
+    "build": "node ./scripts/build && npm run ts:defs",
+    "prepublish": "npm run build"
+  },
+  "author": "Tarek Touati",
+  "license": "MIT",
+  "files": [
+    "dist/*.js",
+    "dist/**/*.d.ts"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint --edit -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/*.min.js",
+      "maxSize": "10 kB"
+    }
+  ],
+  "eslintIgnore": [
+    "locale",
+    "dist",
+    "scripts"
+  ],
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add",
+      "jest --maxWorkers=1 --bail --findRelatedTests"
+    ],
+    "*.js": [
+      "git add"
+    ]
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^0.5.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vue/composition-api": "^0.5.0",
+    "chalk": "^4.0.0",
+    "filesize": "^6.1.0",
+    "gzip-size": "^5.1.1",
+    "rollup": "^2.8.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.27.0",
+    "typescript": "^3.8.3",
+    "uglify-js": "^3.9.2",
+    "vue": "^2.6.11"
+  }
+}
