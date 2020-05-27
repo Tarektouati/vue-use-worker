@@ -20,7 +20,7 @@ const useWorker = (fn: Function): Function[] => {
   };
 
   const killWorker = () => {
-    if (newWorker.value._url) {
+    if (newWorker.value) {
       newWorker.value.terminate();
       URL.revokeObjectURL(newWorker.value._url);
       newWorker.value = null;
