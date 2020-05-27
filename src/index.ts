@@ -1,4 +1,4 @@
-import { ref, Ref } from '@vue/composition-api';
+import { ref, Ref, onUnmounted } from '@vue/composition-api';
 
 const useWorker = (fn: Function): Function[] => {
   const newWorker: Ref<any> = ref();
@@ -19,7 +19,15 @@ const useWorker = (fn: Function): Function[] => {
     return new Worker(URL.createObjectURL(blob));
   };
 
-  const callWorker = (...deps: any[]): Promise<any> =>
+  const killWorker = () => {
+    if (newWorker.value) {
+      newWorker.value.terminate();
+      URL.revokeObjectURL(newWorker.value._url);
+      newWorker.value = null;
+    }
+  };
+
+  const callWorker = (...deps: any[]) =>
     new Promise((resolve, reject) => {
       newWorker.value.onmessage = (e: MessageEvent) => {
         resolve(e.data);
@@ -27,14 +35,17 @@ const useWorker = (fn: Function): Function[] => {
       newWorker.value.onerror = (e: ErrorEvent) => {
         reject(e);
       };
-      newWorker.value?.postMessage(...deps);
+      newWorker.value.postMessage(...deps);
     });
 
   const workerHook = (...fnArgs: any): Promise<any> => {
     newWorker.value = generateWorker(functionName, fn);
     return callWorker([...fnArgs]);
   };
-  return [workerHook];
+  
+  onUnmounted(killWorker);
+
+  return [workerHook, killWorker];
 };
 
 export default useWorker;

@@ -1,13 +1,13 @@
 {
   "name": "vue-use-worker",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Web Worker API implemented as Vue.js composition functions",
   "module": "dist/vue-use-worker.esm.js",
   "unpkg": "dist/vue-use-worker.js",
   "main": "dist/vue-use-worker.js",
   "types": "dist/types/index.d.ts",
-  "homepage": "https://github.com/Tarektouati/vue-use-web",
-  "repository": "https://github.com/Tarektouati/vue-use-web",
+  "homepage": "https://github.com/Tarektouati/vue-use-worker",
+  "repository": "https://github.com/Tarektouati/vue-use-worker",
   "scripts": {
     "test": "jest",
     "test:cover": "jest --coverage",
