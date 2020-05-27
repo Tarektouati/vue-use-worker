@@ -1,6 +1,6 @@
 {
   "name": "vue-use-worker",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Web Worker API implemented as Vue.js composition functions",
   "module": "dist/vue-use-worker.esm.js",
   "unpkg": "dist/vue-use-worker.js",
